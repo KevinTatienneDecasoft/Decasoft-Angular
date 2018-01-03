@@ -1,0 +1,64 @@
+<li class="list-group-item">
+  <div class="row" *ngIf="!updateRec">
+    <div class="col-md-1" >
+      <button type="button" class="btn btn-xs btn-info pull-left" (click)="allowUpdate()">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </div>
+    <div class="col-md-2">
+      {{ recipe.name }}
+    </div>
+    <div class="col-md-2">
+      <img src="{{ recipe.picture }}" class="img-thumbnail">
+    </div>
+    <div class="col-md-3">
+      {{ recipe.description }}
+    </div>
+    <div class="col-md-3">
+      <tr *ngFor="let ingredient of recipe.ingredient">
+        <td>- {{ ingredient.quantity }} {{ ingredient.item }} de {{ ingredient.name }}</td>
+      </tr>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-xs btn-success" (click)="makeRecipe()">
+        <span class="glyphicon glyphicon-cutlery"></span>
+      </button>
+      <button type="button" class="btn btn-xs btn-danger pull-right" (click)="deleteRecipe()">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="updateRec">
+    <div class="col-md-1">
+      <button type="button" class="btn btn-xs btn-warning pull-left" (click)="allowUpdate()">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+    <div class="col-md-2">
+      <input class="newName" [(ngModel)]="newName" type="text" placeholder="{{ recipe.name }}">
+    </div>
+    <div class="col-md-3">
+      <input class="newPicture" [(ngModel)]="newPicture" type="file">
+    </div>
+    <div class="col-md-2">
+      <textarea class="newDescription" [(ngModel)]="newDescription" type="text" placeholder="{{ recipe.description }}" rows="5" cols="20"></textarea>
+    </div>
+    <div class="col-md-3">
+      <form #ingredientForm="ngForm" (ngSubmit)="updateRecipe(ingredientForm)">
+        <div class="row">
+          <div class="col-md-8">
+            <input *ngFor="let ingredient of recipe.ingredient" name="{{ingredient.name}}" 
+              id="{{ingredient.name}}" type="number" placeholder="{{ ingredient.quantity }} {{ ingredient.item }} de {{ ingredient.name }}" ngModel>
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-xs btn-primary">
+            <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</li>
+  

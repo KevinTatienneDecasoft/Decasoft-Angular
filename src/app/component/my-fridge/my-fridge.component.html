@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Frigo</div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="form-group">
+          Ajouter un nouvel ingrédient : &nbsp;
+          <input placeholder="NOM" [(ngModel)]="name" type="text">
+          
+          <input placeholder="QUANTITE" [(ngModel)]="quantity" type="number">
+          
+          <input placeholder="UNITE" [(ngModel)]="item" type="text">
+
+          <button type="button" class="btn btn-xs btn-primary pull-right" (click)="addIngredient()">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;
+          </button>
+        </div>
+      </li>
+    </ul>
+    <ul class="list-group">
+      <app-my-fridge-item *ngFor="let ingredient of ingredients" [ingredient]=ingredient></app-my-fridge-item>
+    </ul>
+  </div>
+</div>

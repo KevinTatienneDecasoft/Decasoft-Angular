@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Recettes</div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="form-group">
+          <b>Ajouter une nouvelle recette :</b> 
+          <button type="button" class="btn btn-xs btn-primary" (click)="allowAddRecipe()" *ngIf="!addRec">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button type="button" class="btn btn-xs btn-warning" (click)="allowAddRecipe()" *ngIf="addRec">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+
+        <div class="form-group" *ngIf="addRec">
+          <div class="form-group">
+            <label>Nom de la recette :</label>
+            <input [(ngModel)]="nameRecipe" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <label>Description :</label>
+            <textarea [(ngModel)]="description" class="form-control" rows="3" ></textarea>
+          </div>
+          <input placeholder="PICTURE" [(ngModel)]="picture" type="text">
+
+          <input placeholder="NOM" [(ngModel)]="nameIngredient" type="text">
+          
+          <input placeholder="QUANTITE" [(ngModel)]="quantity" type="number">
+          
+          <input placeholder="UNITE" [(ngModel)]="item" type="text">
+
+
+          
+        </div>
+      </li>
+    </ul>
+    <ul class="list-group">
+      <app-my-recipe-item *ngFor="let recipe of recipes" [recipe]=recipe></app-my-recipe-item>
+    </ul>
+  </div>
+</div>
