@@ -3,7 +3,6 @@ import { Recipe } from '../../model/recipe';
 import { RecipeService } from '../../service/recipe.service';
 import { NgForm } from '@angular/forms';
 import { Ingredient } from '../../model/ingredient';
-import { Event } from '_debugger';
 import { IngredientService } from '../../service/ingredient.service';
 
 @Component({
@@ -72,7 +71,7 @@ export class MyRecipeItemComponent implements OnInit {
   }
 
   deleteIngFromRecipe(event: Event) {
-    const ingNameToDelete = event.target.attributes.id.nodeValue;
+    const ingNameToDelete = (<HTMLInputElement>event.target).id;
     this.recipeService.deleteIngredientFromRecipe(this.recipe, ingNameToDelete);
   }
 
