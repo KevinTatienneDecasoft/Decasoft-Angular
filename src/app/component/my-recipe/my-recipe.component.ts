@@ -30,6 +30,9 @@ export class MyRecipeComponent implements OnInit {
     this.recipes = this.recipeService.getAllRecipes();
   }
 
+  /**
+   * Permet de changer le statut en modification ou non
+   */
   allowAddRecipe() {
     if (this.addRec) {
       this.addRec = false;
@@ -51,6 +54,9 @@ export class MyRecipeComponent implements OnInit {
     }
   }
 
+  /**
+   * Ajout d'ingrédients dans la recette en cours de création
+   */
   AddIngInRecipe() {
     if (this.nameIng && this.quantityIng && this.itemIng) {
       this.currentIngredients.push({ name: this.nameIng, quantity: this.quantityIng, item: this.itemIng });

@@ -31,6 +31,9 @@ export class MyRecipeItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Permet de changer le statut en modification ou non
+   */
   allowUpdate() {
     if (this.updateRec) {
       this.updateRec = false;
@@ -41,7 +44,6 @@ export class MyRecipeItemComponent implements OnInit {
 
   updateRecipe(form: NgForm) {
     this.newIngredient = JSON.parse(JSON.stringify(form.value));
-
     this.recipeService.updateRecipe(this.recipe, this.newName, this.newDescription, this.newPicture, this.newIngredient);
   }
 
@@ -49,6 +51,9 @@ export class MyRecipeItemComponent implements OnInit {
     this.recipeService.deleteRecipe(this.recipe);
   }
 
+  /**
+   * Permet de changer le statut en modification ou non
+   */
   AllowAddIngInRecipe() {
     if (this.addIngInRec) {
       this.addIngInRec = false;
@@ -57,6 +62,9 @@ export class MyRecipeItemComponent implements OnInit {
     }
   }
 
+  /**
+   * Ajout d'ingrédients dans la recette
+   */
   AddIngInRecipe() {
     if (this.nameIng && this.quantityIng && this.itemIng) {
     this.recipeService.addIngredientInRecipe(this.recipe,
@@ -70,11 +78,17 @@ export class MyRecipeItemComponent implements OnInit {
     }
   }
 
+  /**
+   * Suppression d'ingrédients dans la recette
+   */
   deleteIngFromRecipe(event: Event) {
     const ingNameToDelete = (<HTMLInputElement>event.target).id;
     this.recipeService.deleteIngredientFromRecipe(this.recipe, ingNameToDelete);
   }
 
+  /**
+   * Réalisation de la recette
+   */
   makeRecipe() {
     this.ingredientService.useIngredientOfRecipe(this.recipe);
   }

@@ -20,6 +20,9 @@ export class MyFridgeItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Permet de changer le statut en modification ou non
+   */
   allowUpdate() {
     if (this.updateIng) {
       this.updateIng = false;

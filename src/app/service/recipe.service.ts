@@ -52,6 +52,7 @@ export class RecipeService {
     let newIngredientQuantity: Ingredient[] = [];
     let alertToShow = 'Veuillez indiquer : ';
 
+    // Vérification de la présence de tous les champs
     if (name) {
       newName = name;
     } else {
@@ -71,6 +72,7 @@ export class RecipeService {
       alertToShow = alertToShow + '[l\'image] ';
     }
 
+    // Création des nouvelles quantités d'ingrédients
     for (const ing of Object.keys(recipe['ingredient'])){
       newIngredientQuantity.push({
         name: recipe['ingredient'][ing]['name'],
@@ -79,8 +81,11 @@ export class RecipeService {
       });
     }
 
+    // Vérifie la présence d'ingrédients
     if (newIngredientQuantity.length > 0) {
       let getOut = true;
+
+      // Vérifie la quantité des ingrédients
       for (const newIng of Object.keys(newIngredientQuantity)){
         if (newIngredientQuantity[newIng]['quantity'] === 0) {
           getOut = false;

@@ -32,16 +32,26 @@ export class IngredientService {
     this.ingredients.splice(idx, 1);
   }
 
+  /**
+   * Gère la réalisation de la recette en vérifiant la disponibilité des ingrédients.
+   * Si la recette est réalisable, supprime la quantité d'ingrédient utilisé.
+   * Sinon affiche une alerte spécifique
+   */
   useIngredientOfRecipe(recipe: Recipe): void {
 
     let recipeAllow = true;
     let newIngredientsQuantity: Ingredient[] = [];
     let alertToShow = 'La recette est non réalisable : ';
 
+    // Boucle sur les ingrédients de la recette
     for (let ingInRec of recipe.ingredient) {
       let ingFind = false;
+
+      // Boucle sur les ingrédients du frigo
       for (let ing of this.ingredients) {
         if (ingInRec.name === ing.name) {
+
+          // Vérifie la quantité
           if (ingInRec.quantity > ing.quantity) {
             alertToShow = alertToShow + '[Pas assez de ' + ingInRec.name +  ']';
             ingFind = true;
@@ -52,17 +62,22 @@ export class IngredientService {
           }
         }
       }
+
+      // Si un ingrédient manque stop la recherche
       if (!ingFind) {
         alertToShow = alertToShow + '[Pas de ' + ingInRec.name +  ']';
         recipeAllow = false;
         break;
       }
     }
+
+    // Si tous les ingrédients sont disponible
     if (recipeAllow) {
       for (let ingToDel of newIngredientsQuantity) {
         const idxOfIng = this.ingredients.findIndex(ingredient => ingredient.name === ingToDel.name);
         this.ingredients.splice(idxOfIng, 1);
 
+        // Vérifie si l'ingrédient est épuisé
         if (ingToDel.quantity > 0) {
           this.ingredients.unshift(ingToDel);
         }
@@ -71,8 +86,6 @@ export class IngredientService {
     } else {
       alert(alertToShow);
     }
-
-
   }
 
 }
