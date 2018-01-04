@@ -3,6 +3,8 @@ import { Recipe } from '../../model/recipe';
 import { RecipeService } from '../../service/recipe.service';
 import { NgForm } from '@angular/forms';
 import { Ingredient } from '../../model/ingredient';
+import { Event } from '_debugger';
+import { IngredientService } from '../../service/ingredient.service';
 
 @Component({
   selector: 'app-my-recipe-item',
@@ -20,7 +22,12 @@ export class MyRecipeItemComponent implements OnInit {
   newDescription: string;
   updateRec = false;
 
-  constructor(private recipeService: RecipeService) { }
+  addIngInRec = false;
+  nameIng: string;
+  quantityIng: number;
+  itemIng: string;
+
+  constructor(private recipeService: RecipeService, private ingredientService: IngredientService) { }
 
   ngOnInit() {
   }
@@ -34,7 +41,6 @@ export class MyRecipeItemComponent implements OnInit {
   }
 
   updateRecipe(form: NgForm) {
-
     this.newIngredient = JSON.parse(JSON.stringify(form.value));
 
     this.recipeService.updateRecipe(this.recipe, this.newName, this.newDescription, this.newPicture, this.newIngredient);
@@ -44,16 +50,34 @@ export class MyRecipeItemComponent implements OnInit {
     this.recipeService.deleteRecipe(this.recipe);
   }
 
-  AddIngInRecipe() {
-
+  AllowAddIngInRecipe() {
+    if (this.addIngInRec) {
+      this.addIngInRec = false;
+    } else {
+      this.addIngInRec = true;
+    }
   }
 
-  deleteIngFromRecipe() {
+  AddIngInRecipe() {
+    if (this.nameIng && this.quantityIng && this.itemIng) {
+    this.recipeService.addIngredientInRecipe(this.recipe,
+      {
+        name: this.nameIng,
+        quantity: this.quantityIng,
+        item: this.itemIng
+      });
+    } else {
+      alert('Veuillez remplir tous les champs');
+    }
+  }
 
+  deleteIngFromRecipe(event: Event) {
+    const ingNameToDelete = event.target.attributes.id.nodeValue;
+    this.recipeService.deleteIngredientFromRecipe(this.recipe, ingNameToDelete);
   }
 
   makeRecipe() {
-    console.log('recipe done');
+    this.ingredientService.useIngredientOfRecipe(this.recipe);
   }
 
 }

@@ -22,11 +22,15 @@ export class MyFridgeComponent implements OnInit {
   }
 
   addIngredient() {
-    this.ingredientService.addIngredient({
-      name: this.name,
-      quantity: this.quantity,
-      item: this.item
-    });
+    if (this.name && this.quantity && this.item) {
+      this.ingredientService.addIngredient({
+        name: this.name,
+        quantity: this.quantity,
+        item: this.item
+      });
+    } else {
+      alert('Veuillez remplir tous les champs');
+    }
   }
 
 }

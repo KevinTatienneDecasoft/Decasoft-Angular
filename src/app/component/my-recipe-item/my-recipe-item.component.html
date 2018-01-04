@@ -16,8 +16,29 @@
     </div>
     <div class="col-md-3">
       <tr *ngFor="let ingredient of recipe.ingredient">
-        <td>- {{ ingredient.quantity }} {{ ingredient.item }} de {{ ingredient.name }}</td>
+        <td>- {{ ingredient.quantity }} {{ ingredient.item }} de {{ ingredient.name }}</td>&nbsp;
+        <div id="{{ ingredient.name }}" class="glyphicon glyphicon-remove TrashButton" (click)="deleteIngFromRecipe($event)"></div>
       </tr>
+
+      <button type="button" class="btn btn-xs btn-primary" (click)="AllowAddIngInRecipe()" *ngIf="!addIngInRec">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <button type="button" class="btn btn-xs btn-warning" (click)="AllowAddIngInRecipe()" *ngIf="addIngInRec">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+
+      <div class="form-group row" *ngIf="addIngInRec">
+        <div class="col-md-12 addIR">
+          <input size="5" placeholder="Nom" [(ngModel)]="nameIng" type="text">
+          <input size="2" placeholder="Quantité" [(ngModel)]="quantityIng" type="number">
+          <input size="5" placeholder="Item" [(ngModel)]="itemIng" type="text">
+          <button type="button" class="btn btn-xs btn-primary" (click)="AddIngInRecipe()" *ngIf="addIngInRec">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
+      </div>
+      
+
     </div>
     <div class="col-md-1">
       <button type="button" class="btn btn-xs btn-success" (click)="makeRecipe()">

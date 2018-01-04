@@ -19,20 +19,47 @@
             <input [(ngModel)]="nameRecipe" class="form-control" type="text">
           </div>
           <div class="form-group">
-            <label>Description :</label>
+            <label>Recette :</label>
             <textarea [(ngModel)]="description" class="form-control" rows="3" ></textarea>
           </div>
-          <input placeholder="PICTURE" [(ngModel)]="picture" type="text">
+          <div class="form-group">
+            <label>Image :</label>
+            <input class="newPicture" [(ngModel)]="picture" type="file">
+          </div>
 
-          <input placeholder="NOM" [(ngModel)]="nameIngredient" type="text">
-          
-          <input placeholder="QUANTITE" [(ngModel)]="quantity" type="number">
-          
-          <input placeholder="UNITE" [(ngModel)]="item" type="text">
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label for="ex1">Nom de l'ingrédient</label>
+              <input class="form-control" id="ex1" [(ngModel)]="nameIng" type="text">
+            </div>
+            <div class="col-md-3">
+              <label for="ex2">Quantité</label>
+              <input class="form-control" id="ex2" [(ngModel)]="quantityIng" type="number">
+            </div>
+            <div class="col-md-3">
+              <label for="ex3">Unité</label>
+              <input class="form-control" id="ex3" [(ngModel)]="itemIng" type="text">
+            </div>
+              <button style="margin-top : 25px" type="button" class="btn btn-md btn-info" (click)="AddIngInRecipe()">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+          </div>
 
+          <div class="form-group row" *ngFor="let ing of currentIngredients">
+            <div class="col-md-3">{{ ing.name }}</div>
+            <div class="col-md-3">{{ ing.quantity }}</div>
+            <div class="col-md-3">{{ ing.item }}</div>
+          </div>
+          
+          <div class="form-group">
+            <button style="margin-top : 25px" type="button" class="btn btn-lg btn-primary" (click)="addRecipe()">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
 
           
         </div>
+
       </li>
     </ul>
     <ul class="list-group">

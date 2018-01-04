@@ -12,16 +12,15 @@ import { IngredientService } from '../../service/ingredient.service';
 export class MyRecipeComponent implements OnInit {
 
   recipes: Recipe[];
-  ingredients: Ingredient[];
 
   nameRecipe: string;
   description: string;
   picture: string;
-  ingredient: Ingredient[];
+  currentIngredients: Ingredient[] = [];
 
-  nameIngredient: string;
-  quantity: number;
-  item: string;
+  nameIng: string;
+  quantityIng: number;
+  itemIng: string;
 
   addRec = false;
 
@@ -29,7 +28,6 @@ export class MyRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.recipes = this.recipeService.getAllRecipes();
-    this.ingredients = this.ingredientService.getAllIngredients();
   }
 
   allowAddRecipe() {
@@ -41,12 +39,24 @@ export class MyRecipeComponent implements OnInit {
   }
 
   addRecipe() {
-    this.recipeService.addRecipe({
-      name: this.nameRecipe,
-      description: this.description,
-      picture: this.picture,
-      ingredient: this.ingredient
-    });
+    if (this.nameRecipe && this.description && (this.currentIngredients.length > 0)) {
+      this.recipeService.addRecipe({
+        name: this.nameRecipe,
+        description: this.description,
+        picture: this.picture,
+        ingredient: this.currentIngredients
+      });
+    } else {
+      alert('Veuillez remplir tous les champs');
+    }
+  }
+
+  AddIngInRecipe() {
+    if (this.nameIng && this.quantityIng && this.itemIng) {
+      this.currentIngredients.push({ name: this.nameIng, quantity: this.quantityIng, item: this.itemIng });
+    } else {
+      alert('Ingrédient Incorrect');
+    }
   }
 
 }

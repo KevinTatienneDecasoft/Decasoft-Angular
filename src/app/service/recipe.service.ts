@@ -10,25 +10,25 @@ export class RecipeService {
     { name: 'Steak Frites',
       description: 'Eplucher et couper les pommes de terre. Cuire les frites dans la friteuse. Cuire le steak à la pôele.',
       picture: 'assets/recipe-picture/steak+frite.jpg', ingredient: [
-        { name: 'Boeuf', quantity: 100, item: 'Gramme' },
-        { name: 'Pomme de terre', quantity: 200, item: 'Gramme' }
+        { name: 'boeuf', quantity: 100, item: 'gramme' },
+        { name: 'pomme de terre', quantity: 200, item: 'gramme' }
       ]
     },
     { name: 'Poulet à la moutarde',
       description: 'Faite revenir le poulet dans le beurre. Mélanger la moutarde et la crème fraiche. Ajouter le mélange au poulet',
       picture: 'assets/recipe-picture/poulet+moutarde.jpg', ingredient: [
-        { name: 'Filet de poulet', quantity: 1, item: 'Unité' },
-        { name: 'Crème fraiche', quantity: 0.10, item: 'Litre' },
-        { name: 'Moutarde', quantity: 2, item: 'Cuillère' },
-        { name: 'Beurre', quantity: 10, item: 'Gramme' }
+        { name: 'filet de poulet', quantity: 1, item: 'unité' },
+        { name: 'crème fraiche', quantity: 0.10, item: 'litre' },
+        { name: 'moutarde', quantity: 0.10, item: 'litre' },
+        { name: 'beurre', quantity: 10, item: 'gramme' }
       ]
     },
     { name: 'Crevettes sautées',
       description: 'Faite sauté les crevettes dans l\'huile. Ajouter le citron.',
       picture: 'assets/recipe-picture/crevette+saute.jpg', ingredient: [
-        { name: 'Crevette', quantity: 6, item: 'Unité' },
-        { name: 'Jus de citron', quantity: 2, item: 'Cuillère' },
-        { name: 'Huile d\'olive', quantity: 1, item: 'Cuillère' }
+        { name: 'crevette', quantity: 6, item: 'unité' },
+        { name: 'jus de citron', quantity: 0.10, item: 'litre' },
+        { name: 'huile d\'olive', quantity: 0.10, item: 'litre' }
       ]
     }
   ];
@@ -40,7 +40,7 @@ export class RecipeService {
   }
 
   addRecipe(recipe: Recipe): void {
-    this.recipes.push(recipe);
+    this.recipes.unshift(recipe);
   }
 
   updateRecipe(recipe: Recipe, name: string, description: string, picture: string, ingredient: Ingredient[]): void {
@@ -50,27 +50,25 @@ export class RecipeService {
     let newDescription: string;
     let newPicture: string;
     let newIngredientQuantity: Ingredient[] = [];
+    let alertToShow = 'Veuillez indiquer : ';
 
     if (name) {
       newName = name;
-      console.log('Nom : ' + name);
     } else {
       newName = recipe.name;
-      console.log('NO Nom');
+      alertToShow = alertToShow + '[le nom] ';
     }
     if (description) {
       newDescription = description;
-      console.log('Recette : ' + description);
     } else {
       newDescription = recipe.description;
-      console.log('NO Recette');
+      alertToShow = alertToShow + '[la recette] ';
     }
     if (picture) {
       newPicture = picture;
-      console.log('Image : ' + picture);
     } else {
       newPicture = recipe.picture;
-      console.log('NO Image');
+      alertToShow = alertToShow + '[l\'image] ';
     }
 
     for (const ing of Object.keys(recipe['ingredient'])){
@@ -88,15 +86,19 @@ export class RecipeService {
           getOut = false;
         }
       }
-      if (getOut) {
-        console.log('Ingredient');
-      } else {
+      if (!getOut) {
         newIngredientQuantity = recipe.ingredient;
         console.log('NO Ingredient');
+        alertToShow = alertToShow + '[le ou les ingredients] ';
       }
     } else {
       newIngredientQuantity = recipe.ingredient;
       console.log('NO Ingredient');
+      alertToShow = alertToShow + '[le ou les ingredients] ';
+    }
+
+    if (alertToShow !== '') {
+      alert(alertToShow);
     }
 
     this.recipes.splice(idx, 1, { name: newName, description: newDescription, picture: newPicture, ingredient: newIngredientQuantity });
@@ -108,18 +110,39 @@ export class RecipeService {
   }
 
 
-  addIngredientInRecipe(recipe: Recipe, ingredient: Ingredient[]): void {
+  addIngredientInRecipe(recipe: Recipe, ingredient: Ingredient): void {
 
+    const idx = this.recipes.indexOf(recipe);
+    let newIngredients: Ingredient[] = recipe.ingredient;
+
+    newIngredients.push(ingredient);
+
+    this.recipes.splice(idx, 1,
+      {
+        name: recipe.name,
+        description: recipe.description,
+        picture: recipe.picture,
+        ingredient: newIngredients
+      }
+    );
   }
 
-  deleteIngredientFromRecipe(recipe: Recipe, ingredient: Ingredient[]): void {
+  deleteIngredientFromRecipe(recipe: Recipe, ingredientName: string): void {
 
-  }
+    const idx = this.recipes.indexOf(recipe);
+    let newIngredients: Ingredient[] = recipe.ingredient;
+    const idxOfIng = newIngredients.findIndex(newIngredient => newIngredient.name === ingredientName);
 
+    newIngredients.splice(idxOfIng, 1);
 
-
-  useIngredientOfRecipe(): void {
-
+    this.recipes.splice(idx, 1,
+      {
+        name: recipe.name,
+        description: recipe.description,
+        picture: recipe.picture,
+        ingredient: newIngredients
+      }
+    );
   }
 
 }
