@@ -73,7 +73,7 @@ export class RecipeService {
     }
 
     // Création des nouvelles quantités d'ingrédients
-    for (const ing of Object.keys(recipe['ingredient'])){
+    for (const ing of Object.keys(recipe['ingredient'])) {
       newIngredientQuantity.push({
         name: recipe['ingredient'][ing]['name'],
         quantity: +(ingredient[recipe['ingredient'][ing]['name']]),
@@ -86,7 +86,7 @@ export class RecipeService {
       let getOut = true;
 
       // Vérifie la quantité des ingrédients
-      for (const newIng of Object.keys(newIngredientQuantity)){
+      for (const newIng of Object.keys(newIngredientQuantity)) {
         if (newIngredientQuantity[newIng]['quantity'] === 0) {
           getOut = false;
         }

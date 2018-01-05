@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th colspan="7">{{meal.timeMeal}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td *ngFor="let key of keys">
+        <div (click)="chooseRecipe()">{{ dayMeal[key] }}</div>
+        <div class="dropdown">
+          <button class="btn btn-success dropdown-toggle" type="button" 
+              id="dropdownMenuButton" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-cutlery"></span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a *ngFor="let recipe of recipes" [id]=key 
+              class="dropdown-item" (click)=addRecipe($event)>{{ recipe.name }}<br/></a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
