@@ -88,4 +88,11 @@ export class IngredientService {
     }
   }
 
+  /**
+   *
+   */
+  buyIngredientFromErrandList(): void {
+
+  }
+
 }

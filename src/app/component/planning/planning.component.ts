@@ -71,6 +71,7 @@ export class PlanningComponent implements OnInit {
   }
 
   generateErrandList() {
+    // let errandList = this.planningService.getAllIngredientFromPlanning();
     this.router.navigate(['errandList']);
   }
 

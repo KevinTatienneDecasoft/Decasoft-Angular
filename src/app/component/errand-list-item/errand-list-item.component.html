@@ -1,0 +1,38 @@
+<li class="list-group-item">
+    <div class="row">
+      <div class="col-xs-1 col-md-1" *ngIf="!updateIng">
+        <button type="button" class="btn btn-xs btn-info pull-left" (click)="allowUpdate()">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+      </div>
+      <div class="col-xs-1 col-md-1" *ngIf="updateIng">
+        <button type="button" class="btn btn-xs btn-warning pull-left" (click)="allowUpdate()">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      <div class="col-xs-2 col-md-2" *ngIf="!updateIng">
+        {{ ingredient.quantity }}
+      </div>
+      <div class="col-xs-2 col-md-2" *ngIf="updateIng">
+        <input class="newQuantity" [(ngModel)]="newQuantity" type="number">
+        <button type="button" class="btn btn-xs btn-primary" (click)="updateIngredient()">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </div>
+      <div class="col-xs-2 col-md-2">
+        {{ ingredient.item }}
+      </div>
+      <div class="col-xs-3 col-md-3">
+        {{ ingredient.name }}
+      </div>
+      <div class="col-xs-3 col-md-4">
+        <button type="button" class="btn btn-xs btn-success" (click)="buyIngredient()">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+        </button>
+        <button type="button" class="btn btn-xs btn-danger pull-right" (click)="deleteIngredient()">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </div>
+    </div>
+  </li>
+  

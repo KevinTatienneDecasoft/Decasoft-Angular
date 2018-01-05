@@ -18,8 +18,8 @@ export class RecipeService {
       description: 'Faite revenir le poulet dans le beurre. Mélanger la moutarde et la crème fraiche. Ajouter le mélange au poulet',
       picture: 'assets/recipe-picture/poulet+moutarde.jpg', ingredient: [
         { name: 'filet de poulet', quantity: 1, item: 'unité' },
-        { name: 'crème fraiche', quantity: 0.10, item: 'litre' },
-        { name: 'moutarde', quantity: 0.10, item: 'litre' },
+        { name: 'crème fraiche', quantity: 0.1, item: 'litre' },
+        { name: 'moutarde', quantity: 0.1, item: 'litre' },
         { name: 'beurre', quantity: 10, item: 'gramme' }
       ]
     },
@@ -27,8 +27,8 @@ export class RecipeService {
       description: 'Faite sauté les crevettes dans l\'huile. Ajouter le citron.',
       picture: 'assets/recipe-picture/crevette+saute.jpg', ingredient: [
         { name: 'crevette', quantity: 6, item: 'unité' },
-        { name: 'jus de citron', quantity: 0.10, item: 'litre' },
-        { name: 'huile d\'olive', quantity: 0.10, item: 'litre' }
+        { name: 'jus de citron', quantity: 0.1, item: 'litre' },
+        { name: 'huile d\'olive', quantity: 0.1, item: 'litre' }
       ]
     }
   ];
@@ -148,6 +148,58 @@ export class RecipeService {
         ingredient: newIngredients
       }
     );
+  }
+
+  /**
+   * Récupère l'objet "Recipe" via le paramètre "name".
+   */
+  getRecipeWithRecipeName(recipeName: string[]): Recipe[] {
+    let recipeList: Recipe[] = [];
+
+    for (const recipeN of recipeName) {
+      for (const recipe of this.recipes) {
+        if (recipeN === recipe.name) {
+          recipeList.push(recipe);
+        }
+      }
+    }
+    return recipeList;
+  }
+
+  /**
+   * Récupère les ingrédients via les recettes
+   */
+  getIngredientsFromPlanningRecipe(recipeName: string[]): Ingredient[] {
+
+    let recipeListFromPlanning = this.getRecipeWithRecipeName(recipeName);
+    let ingredientsFromPR: Ingredient[] = [];
+
+    for (let recipe of recipeListFromPlanning) {
+      for (let ing of recipe.ingredient) {
+        if (ingredientsFromPR.length > 0) {
+          let isPresent = false;
+          let ingPresent: Ingredient;
+          let newQuantity: number;
+          for (let ingPR of ingredientsFromPR) {
+            if (ingPR.name === ing.name) {
+              isPresent = true;
+              ingPresent = ingPR;
+              newQuantity = ingPR.quantity + ing.quantity;
+            }
+          }
+          if (isPresent) {
+            const idx = ingredientsFromPR.indexOf(ingPresent);
+            ingredientsFromPR.splice(idx, 1, { name: ingPresent.name, quantity: newQuantity, item: ingPresent.item });
+          } else {
+            ingredientsFromPR.push(ing);
+          }
+        } else {
+          ingredientsFromPR.push(ing);
+        }
+      }
+    }
+
+    return ingredientsFromPR;
   }
 
 }

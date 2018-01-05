@@ -22,6 +22,8 @@ import { MyFridgeItemComponent } from './component/my-fridge-item/my-fridge-item
 import { MyRecipeItemComponent } from './component/my-recipe-item/my-recipe-item.component';
 import { PlanningService } from './service/planning.service';
 import { PlanningItemComponent } from './component/planning-item/planning-item.component';
+import { ErrandListService } from './service/errand-list.service';
+import { ErrandListItemComponent } from './component/errand-list-item/errand-list-item.component';
 
 registerLocaleData(localeFr);
 
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     MyFridgeItemComponent,
     MyRecipeItemComponent,
-    PlanningItemComponent
+    PlanningItemComponent,
+    ErrandListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ const appRoutes: Routes = [
   providers: [
     IngredientService,
     RecipeService,
-    PlanningService
+    PlanningService,
+    ErrandListService
   ],
   bootstrap: [AppComponent]
 })

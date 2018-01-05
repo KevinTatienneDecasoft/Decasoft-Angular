@@ -40,7 +40,8 @@ export class PlanningItemComponent implements OnInit {
   addRecipe(event: Event) {
     const daySelected = (<HTMLInputElement>event.target).id;
     const recipeSelected = (<HTMLInputElement>event.target).innerHTML;
-    let recipeSelectedTrue = recipeSelected.replace('<br _ngcontent-c3="">', '');
+    let recipeSelectedTrue = recipeSelected.slice(0, -21);
+    //recipeSelected.replace('<br _ngcontent-c3="">', '');
 
     this.planningService.addRecipeInDay(this.meal, daySelected, recipeSelectedTrue);
   }

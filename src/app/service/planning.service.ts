@@ -9,12 +9,12 @@ export class PlanningService {
     {
       timeMeal: 'Petit Déjeuner',
       idMeal: 'Breakfast',
-      weekMeals: [{ Sunday: '', Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: '', Saturday: '' }]
+      weekMeals: [{ Sunday: '', Monday: '', Tuesday: '', Wednesday: '', Thursday: 'Steak Frites', Friday: '', Saturday: '' }]
     },
     {
       timeMeal: 'Déjeuner',
       idMeal: 'Lunch',
-      weekMeals: [{ Sunday: '', Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: '', Saturday: '' }]
+      weekMeals: [{ Sunday: '', Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: 'Poulet à la moutarde', Saturday: 'Steak Frites' }]
     },
     {
       timeMeal: 'Diner',
