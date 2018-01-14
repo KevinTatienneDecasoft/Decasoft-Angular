@@ -22,15 +22,15 @@ export class ErrandListComponent implements OnInit {
   }
 
   addIngredient() {
-    // if (this.name && this.quantity && this.item) {
-    //   this.ingredientService.addIngredient({
-    //     name: this.name,
-    //     quantity: this.quantity,
-    //     item: this.item
-    //   });
-    // } else {
-    //   alert('Veuillez remplir tous les champs');
-    // }
+    if (this.name && this.quantity && this.item) {
+      this.errandListService.addIngredientInErrandList({
+        name: this.name,
+        quantity: this.quantity,
+        item: this.item
+      });
+    } else {
+      alert('Veuillez remplir tous les champs');
+    }
   }
 
 }

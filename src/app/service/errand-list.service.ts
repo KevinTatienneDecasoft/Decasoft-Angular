@@ -68,8 +68,8 @@ export class ErrandListService {
 
   }
 
-  addIngredientInErrandList(): void {
-
+  addIngredientInErrandList(ingredient: Ingredient): void {
+    this.errandList.ingredients.unshift(ingredient);
   }
 
   deleteIngredientFromErrandList(): void {

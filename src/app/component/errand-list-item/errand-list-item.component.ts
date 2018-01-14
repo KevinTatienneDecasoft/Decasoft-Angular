@@ -31,7 +31,6 @@ export class ErrandListItemComponent implements OnInit {
   }
 
   buyIngredient() {
-
   }
 
   updateIngredient() {
